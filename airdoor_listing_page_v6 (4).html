@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物件掲載をご検討の管理会社様へ｜エアドア</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #1A9AE0;
+    --blue-dark: #0F6FA3;
+    --blue-light: #E8F5FC;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --white: #ffffff;
+    --bg: #f8fafc;
+    --orange: #F97316;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); background: var(--white); font-size: 15px; line-height: 1.7; }
+
+  /* ===== HEADER ===== */
+  .header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .header-logo { font-size: 20px; font-weight: 700; color: var(--blue); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .header-badge { font-size: 11px; font-weight: 500; background: var(--blue); color: white; padding: 2px 8px; border-radius: 2px; }
+  .header-nav { display: flex; align-items: center; gap: 28px; }
+  .header-nav a { font-size: 13px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  .header-nav a:hover { color: var(--blue); }
+  .header-cta { background: var(--orange) !important; color: white !important; font-weight: 700 !important; padding: 8px 20px; border-radius: 4px; }
+
+  /* ===== HERO - goodroom風：背景画像＋左テキスト＋右スマホ ===== */
+  .hero {
+    position: relative;
+    background: #1a2a3a;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  /* 部屋の写真風グラデーション背景 */
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(10,60,100,0.92) 0%, rgba(10,60,100,0.75) 50%, rgba(10,60,100,0.3) 100%),
+      linear-gradient(135deg, #1a3a5c 0%, #2a6a9a 50%, #3a8ac0 100%);
+  }
+  /* 右側に部屋のシルエット感 */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 55%;
+    background: linear-gradient(135deg, #2a5a80 0%, #1a3a5c 40%, #0d2035 100%);
+    clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%);
+    opacity: 0.6;
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 1000px; margin: 0 auto;
+    display: flex; align-items: center;
+    padding: 56px 40px;
+    gap: 48px; width: 100%;
+  }
+  .hero-left { flex: 1; color: white; }
+  .hero-eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 500;
+    background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9);
+    padding: 4px 14px; border-radius: 99px; margin-bottom: 20px;
+    letter-spacing: 0.06em;
+  }
+  .hero-title { font-size: 36px; font-weight: 700; line-height: 1.45; margin-bottom: 16px; }
+  .hero-title .line2 { font-size: 28px; font-weight: 500; opacity: 0.9; }
+  .hero-sub { font-size: 14px; opacity: 0.85; line-height: 1.9; margin-bottom: 32px; }
+
+  /* goodroom風の丸バッジ - ヒーロー内に3つ */
+  .hero-bubbles { display: flex; gap: 20px; margin-bottom: 32px; flex-wrap: wrap; }
+  .hero-bubble {
+    width: 110px; height: 110px; border-radius: 50%;
+    background: var(--blue); color: white;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  /* ヒーロー内カード3枚 */
+  .hero-cards { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+  .hero-card {
+    flex: 1; min-width: 140px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 16px 14px;
+    color: white;
+  }
+  .hc-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 10px;
+    font-size: 13px; font-weight: 700; color: white;
+  }
+  .hc-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
+  .hc-body { font-size: 11px; opacity: 0.82; line-height: 1.65; }
+
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-orange { display: inline-block; background: var(--orange); color: white; font-weight: 700; font-size: 15px; padding: 14px 36px; border-radius: 4px; text-decoration: none; }
+  .btn-white-outline { display: inline-block; background: transparent; color: white; font-weight: 700; font-size: 14px; padding: 13px 28px; border-radius: 4px; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.6); }
+
+  /* スマホモックアップ */
+  .hero-right { flex-shrink: 0; }
+  .phone-wrap {
+    width: 220px;
+    background: #0d1117;
+    border-radius: 32px;
+    padding: 10px;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+  }
+  .phone-screen {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  .phone-header {
+    background: white;
+    padding: 10px 12px 6px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .phone-logo { font-size: 12px; font-weight: 700; color: var(--blue); }
+  .phone-tag { font-size: 8px; color: var(--muted); }
+  .phone-search {
+    margin: 8px 10px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 9px;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 4px;
+  }
+  .phone-section-label { font-size: 8px; font-weight: 700; color: var(--muted); padding: 4px 10px 4px; }
+  .phone-card {
+    margin: 0 10px 8px;
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .phone-img {
+    width: 48px; height: 48px; border-radius: 6px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .phone-img.blue { background: linear-gradient(135deg, #dbeafe, #93c5fd); }
+  .phone-img.warm { background: linear-gradient(135deg, #fef9c3, #fde68a); }
+  .phone-info { flex: 1; }
+  .phone-name { font-size: 9px; font-weight: 700; color: #1a1a1a; margin-bottom: 2px; }
+  .phone-price { font-size: 10px; font-weight: 700; color: var(--blue); }
+  .phone-badge {
+    display: inline-block; font-size: 7px; font-weight: 700;
+    background: #dcfce7; color: #166534;
+    padding: 1px 5px; border-radius: 3px; margin-top: 2px;
+  }
+  .phone-btn {
+    margin: 6px 10px 10px;
+    background: var(--orange);
+    color: white; font-size: 9px; font-weight: 700;
+    padding: 6px; border-radius: 6px; text-align: center;
+  }
+
+  /* ===== こんな管理会社に向いています ===== */
+  .fit-section { background: var(--bg); padding: 48px 24px; border-bottom: 1px solid var(--border); }
+  .fit-inner { max-width: 720px; margin: 0 auto; }
+  .fit-label { font-size: 13px; font-weight: 700; color: var(--blue); text-align: center; margin-bottom: 28px; letter-spacing: 0.04em; }
+  .fit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .fit-item { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; display: flex; align-items: center; gap: 12px; }
+  .fit-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+  .fit-text { font-size: 13px; color: var(--text); line-height: 1.55; font-weight: 500; }
+
+  /* ===== BEFORE / AFTER ===== */
+  .ba-grid { display: flex; gap: 12px; align-items: center; }
+  .ba-card { flex: 1; border-radius: 10px; padding: 24px; }
+  .ba-card.before { background: #fef2f2; border: 1px solid #fecaca; }
+  .ba-card.after { background: var(--blue-light); border: 1px solid #bfdbfe; }
+  .ba-head { margin-bottom: 14px; }
+  .ba-badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 12px; border-radius: 99px; }
+  .before-badge { background: #fee2e2; color: #dc2626; }
+  .after-badge { background: var(--blue); color: white; }
+  .ba-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .ba-list li { font-size: 13px; line-height: 1.6; display: flex; gap: 7px; }
+  .ba-card.before .ba-list li { color: #6b7280; }
+  .ba-card.before .ba-list li:before { content: '✗'; color: #dc2626; font-weight: 700; flex-shrink: 0; }
+  .ba-card.after .ba-list li { color: var(--text); }
+  .ba-card.after .ba-list li:before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+  .ba-arrow { font-size: 28px; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+
+  /* ===== SECTION ===== */
+  .section { padding: 64px 24px; max-width: 720px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: var(--blue); margin-bottom: 8px; }
+  .section-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+  .section-sub { font-size: 14px; color: var(--muted); margin-bottom: 36px; line-height: 1.75; }
+  .divider { border: none; border-top: 1px solid var(--border); }
+
+  /* ===== MERIT ===== */
+  .merits { display: flex; flex-direction: column; gap: 14px; }
+  .merit { display: flex; gap: 16px; align-items: flex-start; padding: 22px; background: var(--bg); border-radius: 10px; border-left: 4px solid var(--blue); }
+  .merit-icon { width: 42px; height: 42px; border-radius: 50%; background: var(--blue); color: white; font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .merit-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--blue-light); color: var(--blue-dark); padding: 2px 8px; border-radius: 2px; margin-bottom: 5px; }
+  .merit-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .merit-body { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+  /* ===== 成約率比較 ===== */
+  .rate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .rate-card { border-radius: 10px; padding: 28px 24px; text-align: center; }
+  .rate-card.other { background: var(--bg); border: 1px solid var(--border); }
+  .rate-card.airdoor { background: var(--blue); color: white; }
+  .rate-label { font-size: 12px; margin-bottom: 8px; }
+  .rate-card.other .rate-label { color: var(--muted); }
+  .rate-card.airdoor .rate-label { opacity: 0.85; }
+  .rate-num { font-size: 38px; font-weight: 700; letter-spacing: -0.02em; }
+  .rate-card.other .rate-num { color: var(--muted); }
+  .rate-unit { font-size: 13px; margin-top: 4px; }
+  .rate-card.other .rate-unit { color: var(--muted); }
+  .rate-card.airdoor .rate-unit { opacity: 0.85; }
+  .rate-note { font-size: 10px; margin-top: 8px; opacity: 0.65; }
+
+  /* ===== FLOW ===== */
+  .flow { display: flex; flex-direction: column; }
+  .flow-item { display: flex; gap: 18px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .flow-item:last-child { border-bottom: none; }
+  .flow-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .flow-num { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); color: white; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .flow-line { width: 2px; background: var(--border); flex: 1; min-height: 20px; margin-top: 6px; }
+  .flow-badges { display: flex; gap: 6px; margin-bottom: 5px; flex-wrap: wrap; }
+  .fbadge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 2px; }
+  .fbadge.you { background: #fef3c7; color: #92400e; }
+  .fbadge.us { background: var(--blue-light); color: var(--blue-dark); }
+  .fbadge.time { background: #dcfce7; color: #166534; }
+  .flow-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+  .flow-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* ===== PLANS ===== */
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .plan { border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .plan.main { border-color: var(--blue); }
+  .plan-head { padding: 18px 20px; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .plan.main .plan-head { background: var(--blue); color: white; }
+  .plan-tag { font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+  .plan.main .plan-tag { color: rgba(255,255,255,0.8); }
+  .plan-name { font-size: 18px; font-weight: 700; }
+  .plan-body { padding: 18px 20px; }
+  .plan-catch { font-size: 13px; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
+  .plan-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+  .plan-list li { font-size: 13px; color: var(--muted); display: flex; gap: 7px; }
+  .plan-list li:before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+  .plan-btn { display: block; text-align: center; background: var(--blue); color: white; font-weight: 700; font-size: 14px; padding: 12px; border-radius: 6px; text-decoration: none; }
+  .plan.main .plan-btn { background: var(--orange); }
+
+  /* ===== FAQ ===== */
+  .faq { border-bottom: 1px solid var(--border); padding: 18px 0; }
+  .faq:last-child { border-bottom: none; }
+  .faq-q { font-size: 14px; font-weight: 700; margin-bottom: 6px; display: flex; gap: 8px; }
+  .faq-q:before { content: 'Q.'; color: var(--blue); flex-shrink: 0; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.75; padding-left: 24px; }
+
+  /* ===== CTA ===== */
+  .cta-bottom { background: var(--blue); padding: 64px 24px; text-align: center; color: white; }
+  .cta-bottom-title { font-size: 26px; font-weight: 700; margin-bottom: 12px; }
+  .cta-bottom-sub { font-size: 14px; opacity: 0.88; margin-bottom: 32px; line-height: 1.85; }
+  .cta-note { font-size: 12px; opacity: 0.7; margin-top: 14px; }
+
+  .footer { background: #0a3d5c; color: white; text-align: center; padding: 24px; font-size: 12px; }
+
+  @media (max-width: 700px) {
+    .hero-inner { flex-direction: column; padding: 48px 24px; }
+    .hero-title { font-size: 28px; }
+    .hero-right { display: none; }
+    .header-nav { display: none; }
+    .rate-grid, .plans { grid-template-columns: 1fr; }
+    .fit-grid { grid-template-columns: repeat(2, 1fr); }
+    .ba-grid { flex-direction: column; }
+    .ba-arrow { transform: rotate(90deg); }
+    .hero-cards { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <a class="header-logo" href="https://airdoor.jp">airdoor <span class="header-badge">掲載のご案内</span></a>
+  <nav class="header-nav">
+    <a href="#merit">選ぶ理由</a>
+    <a href="#flow">掲載の流れ</a>
+    <a href="#faq">よくある質問</a>
+    <a href="#contact" class="header-cta">掲載を相談する</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">管理会社様へ</div>
+      <div class="hero-title">
+        全ての空室を、手間なく<br>
+        <span class="line2">ダイレクトにユーザーへ届ける。</span>
+      </div>
+
+      <div class="hero-cards">
+        <div class="hero-card">
+          <div class="hc-icon">1</div>
+          <div class="hc-title">全空室を自動でカバー</div>
+          <div class="hc-body">新規募集物件をそのまま掲載<br>→ 掲載漏れなくユーザーにリーチ</div>
+        </div>
+        <div class="hero-card">
+          <div class="hc-icon">2</div>
+          <div class="hc-title">既存導線に追加するだけ</div>
+          <div class="hc-body">ポータル・仲介経由に加えて活用<br>→ 新たな導線を1本追加</div>
+        </div>
+        <div class="hero-card">
+          <div class="hc-icon">3</div>
+          <div class="hc-title">運用負荷を増やさず活用</div>
+          <div class="hc-body">現在の管理フローのまま導入可能<br>→ 追加工数なく運用</div>
+        </div>
+      </div>
+
+      <div class="hero-btns">
+        <a class="btn-orange" href="#contact">無料で掲載を相談する</a>
+        <a class="btn-white-outline" href="#merit">詳しく見る</a>
+      </div>
+    </div>
+
+    <!-- スマホモックアップ -->
+    <div class="hero-right">
+      <div class="phone-wrap">
+        <div class="phone-screen">
+          <div class="phone-header">
+            <span class="phone-logo">airdoor</span>
+            <span class="phone-tag">管理会社直結</span>
+          </div>
+          <div class="phone-search">🔍 エリア・路線から探す</div>
+          <div class="phone-section-label">新着物件</div>
+          <div class="phone-card">
+            <div class="phone-img blue">🏠</div>
+            <div class="phone-info">
+              <div class="phone-name">渋谷区代々木 1LDK</div>
+              <div class="phone-price">148,000円/月</div>
+              <div class="phone-badge">空室確認済み</div>
+            </div>
+          </div>
+          <div class="phone-card">
+            <div class="phone-img warm">🏢</div>
+            <div class="phone-info">
+              <div class="phone-name">新宿区西新宿 1K</div>
+              <div class="phone-price">89,000円/月</div>
+              <div class="phone-badge">即入居可</div>
+            </div>
+          </div>
+          <div class="phone-btn">事前に見学予約をしたい【無料】</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- こんな管理会社に向いています -->
+<div class="fit-section">
+  <div class="fit-inner">
+    <div class="fit-label">こんな管理会社様に向いています</div>
+    <div class="fit-grid">
+      <div class="fit-item">
+        <div class="fit-dot"></div>
+        <div class="fit-text">仲介業務・エンド対応に工数をかけたくない</div>
+      </div>
+      <div class="fit-item">
+        <div class="fit-dot"></div>
+        <div class="fit-text">空室期間をできるだけ短くしたい</div>
+      </div>
+      <div class="fit-item">
+        <div class="fit-dot"></div>
+        <div class="fit-text">既存ポータル・仲介にもう1本導線を増やしたい</div>
+      </div>
+      <div class="fit-item">
+        <div class="fit-dot"></div>
+        <div class="fit-text">今の管理フローを変えずに導入したい</div>
+      </div>
+      <div class="fit-item">
+        <div class="fit-dot"></div>
+        <div class="fit-text">仲介会社を介さず自社で成約まで完結させたい</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MERIT -->
+<div class="section" id="merit">
+  <div class="section-label">WHY AIRDOOR</div>
+  <div class="section-title">エアドアが選ばれる理由</div>
+  <div class="section-sub">既存のリーシングを変えずに、手間ゼロで空室対策の新しい選択肢を1本追加できます。</div>
+  <div class="merits">
+    <div class="merit">
+      <div class="merit-icon">1</div>
+      <div>
+        <div class="merit-tag">手間ゼロ（掲載のみプラン）</div>
+        <div class="merit-title">掲載したら、あとは動かなくていい</div>
+        <div class="merit-body">掲載のみプランでは、問い合わせ対応・内見調整・仲介業務はすべてエアドアの提携パートナー（仲介会社）が担当します。管理会社様がエンドユーザーと直接やりとりする必要はありません。</div>
+      </div>
+    </div>
+    <div class="merit">
+      <div class="merit-icon">2</div>
+      <div>
+        <div class="merit-tag">費用ゼロ</div>
+        <div class="merit-title">掲載件数無制限で、コストを抑えてスタート</div>
+        <div class="merit-body">掲載件数は無制限で、全空室を自動でカバーできます。費用の詳細はお問い合わせ時にご案内します。</div>
+      </div>
+    </div>
+    <div class="merit">
+      <div class="merit-icon">3</div>
+      <div>
+        <div class="merit-tag">運用ゼロ</div>
+        <div class="merit-title">既存システムと自動連携。手動登録不要</div>
+        <div class="merit-body">現在ご利用の管理システムから物件データを自動取得して掲載。情報更新も自動です。今の管理フローをまったく変えることなく、新たな集客チャネルが追加されます。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- BEFORE / AFTER -->
+<div class="section" id="before-after">
+  <div class="section-label">BEFORE / AFTER</div>
+  <div class="section-title">導入前と導入後の変化</div>
+  <div class="section-sub">エアドアを追加するだけで、空室へのアプローチが変わります。</div>
+  <div class="ba-grid">
+
+    <div class="ba-card before">
+      <div class="ba-head">
+        <span class="ba-badge before-badge">導入前</span>
+      </div>
+      <ul class="ba-list">
+        <li>仲介会社に客付けを依頼し、反響を待つしかない</li>
+        <li>掲載情報の更新を仲介会社任せにしており、情報が古くなりがち</li>
+        <li>客付けを依頼しても空室がなかなか埋まらない</li>
+        <li>空室が長引くと家賃値下げを余儀なくされる</li>
+      </ul>
+    </div>
+
+    <div class="ba-arrow">→</div>
+
+    <div class="ba-card after">
+      <div class="ba-head">
+        <span class="ba-badge after-badge">導入後</span>
+      </div>
+      <ul class="ba-list">
+        <li>エアドア経由で新たな反響チャネルが1本追加される</li>
+        <li>管理DBと直接連携し、空室情報がリアルタイムで自動掲載</li>
+        <li>新たな反響チャネルが加わり、空室が埋まりやすくなる</li>
+        <li>空室期間が短縮され、値下げせずに決まりやすくなる</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<div class="section" id="flow">
+  <div class="section-label">FLOW</div>
+  <div class="section-title">掲載までの流れ</div>
+  <div class="section-sub">契約から最短1〜2週間で掲載開始。貴社の作業はほぼありません。</div>
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div>
+        <div class="flow-badges"><span class="fbadge us">エアドア対応</span></div>
+        <div class="flow-title">お問い合わせ・ご契約</div>
+        <div class="flow-body">フォームよりご連絡ください。2営業日以内に担当者よりご連絡し、GMOサインにて電子契約を締結します。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div>
+        <div class="flow-badges"><span class="fbadge us">エアドア対応</span></div>
+        <div class="flow-title">初期設定</div>
+        <div class="flow-body">エアドア側で管理画面の登録・コンバート会社へのデータ連携手続きを進めます。貴社の作業はありません。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+      <div>
+        <div class="flow-badges"><span class="fbadge you">貴社対応</span></div>
+        <div class="flow-title">ヒアリングフォーム入力</div>
+        <div class="flow-body">簡単なフォームにご入力いただくだけ。その後のデータ連携設定はエアドアが対応します。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">4</div></div>
+      <div>
+        <div class="flow-badges"><span class="fbadge time">最短1〜2週間</span></div>
+        <div class="flow-title">掲載開始</div>
+        <div class="flow-body">掲載情報の最終確認後、掲載開始。以降は物件情報が自動更新されます。日常業務への影響はゼロです。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PLANS -->
+<div class="section" id="plans">
+  <div class="section-label">PLAN</div>
+  <div class="section-title">自社で反響を受けたい方向けのプランも</div>
+  <div class="section-sub">手間ゼロの「掲載のみプラン」を主軸に、問い合わせを自社で受けて自社付けを増やしたい方向けのプランもご用意しています。</div>
+  <div class="plans">
+    <div class="plan main">
+      <div class="plan-head">
+        <div class="plan-tag">手間ゼロ　おすすめ</div>
+        <div class="plan-name">掲載のみプラン</div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-catch">掲載するだけ。問い合わせ・仲介はエアドアパートナーにおまかせ。</div>
+        <ul class="plan-list">
+          <li>掲載件数：無制限</li>
+          <li>反響課金：不要</li>
+          <li>問い合わせ対応：エアドアパートナー</li>
+          <li>費用の詳細はお問い合わせ時にご案内</li>
+        </ul>
+        <a class="plan-btn" href="#contact">このプランで相談する</a>
+      </div>
+    </div>
+    <div class="plan">
+      <div class="plan-head">
+        <div class="plan-tag">自社付け促進</div>
+        <div class="plan-name">掲載＋反響送客プラン</div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-catch">質の高い反響を自社で受けて、仲介業務を自社完結したい方向け。</div>
+        <ul class="plan-list">
+          <li>問い合わせが管理会社に直接届く</li>
+          <li>自社付けで成約を増やせる</li>
+          <li>反響課金制（問い合わせが来た分だけ）</li>
+          <li>費用の詳細はお問い合わせ時にご案内</li>
+        </ul>
+        <a class="plan-btn" href="#contact">このプランで相談する</a>
+      </div>
+    </div>
+  </div>
+  <div style="font-size:12px;color:var(--muted);margin-top:12px;">※ご利用開始後のプラン切り替えも可能です。</div>
+</div>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<div class="section" id="faq">
+  <div class="section-label">FAQ</div>
+  <div class="section-title">よくある質問</div>
+  <div class="faq">
+    <div class="faq-q">エンドユーザーへの対応は必要ですか？</div>
+    <div class="faq-a">掲載のみプランでは不要です。問い合わせ・内見対応はすべてエアドアの提携仲介パートナーが対応します。管理会社様がエンドユーザーと直接やりとりする必要はありません。</div>
+  </div>
+  <div class="faq">
+    <div class="faq-q">既存のリーシングを変える必要がありますか？</div>
+    <div class="faq-a">必要ありません。現在の管理フローそのままで導入でき、既存ポータル・仲介経由のリーシングに追加する形でご活用いただけます。</div>
+  </div>
+  <div class="faq">
+    <div class="faq-q">どのシステムと連携できますか？</div>
+    <div class="faq-a">主要な管理システムとの連携に対応しています。現在ご利用のシステムについては、お問い合わせ時にお知らせください。</div>
+  </div>
+  <div class="faq">
+    <div class="faq-q">掲載件数に制限はありますか？</div>
+    <div class="faq-a">制限はありません。全空室を自動でカバーし、物件選定なしでユーザーサイトへの掲載が可能です。</div>
+  </div>
+  <div class="faq">
+    <div class="faq-q">他のポータルと併用できますか？</div>
+    <div class="faq-a">はい、問題ありません。多くの管理会社様が既存チャネルに追加する形でご利用されています。</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-bottom" id="contact">
+  <div class="cta-bottom-title">まずはお気軽にご相談ください</div>
+  <div class="cta-bottom-sub">掲載方法・費用・システム連携など、どんなご質問でも構いません。<br>担当者が状況をお聞きして丁寧にご説明します。</div>
+  <a class="btn-orange" href="https://docs.google.com/forms/d/e/1FAIpQLSfoQMa_duFupZw46Uv7ftSWCucYfcgrQJDU-zryy6yZKx5C-g/viewform?usp=publish-editor" style="font-size:15px;padding:16px 44px;">掲載について相談する（無料）</a>
+  <div class="cta-note">フォーム入力後、2営業日以内にご連絡します</div>
+</div>
+
+<div class="footer">© airdoor, Inc.</div>
+
+</body>
+</html>
